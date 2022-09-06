@@ -1,9 +1,9 @@
-const sequelize = require('./config/connection');
+const connection = require('./config/connection');
 const inquirer = require('inquirer');
 require("console.table");
 
 // connect to the mysql server and sql database
-sequelize.connect(function (err) {
+connection.connect(function (err) {
     if (err) throw err;
     // run the start function after the connection is made to prompt the user
     promptUser();
