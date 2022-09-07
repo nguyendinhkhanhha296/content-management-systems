@@ -33,7 +33,9 @@ const promptUser = () => {
             ]
         }])
         .then((answers) => {
-            const { choices } = answers;
+            const {
+                choices
+            } = answers;
 
             if (choices === 'View All Employees') {
                 viewAllEmployees();
@@ -91,4 +93,89 @@ const promptUser = () => {
                 sequelize.end();
             }
         });
+};
+
+//========================================VIEW=========================================
+//1. View All Employees
+const viewAllEmployees = () => {
+    let query = `SELECT employee.id, 
+                    employee.first_name, 
+                    employee.last_name, 
+                    role.title, 
+                    department.department_name AS 'department', 
+                    role.salary
+                 FROM employee, role, department 
+                 WHERE department.id = role.department_id 
+                 AND role.id = employee.role_id
+                 ORDER BY employee.id ASC`;
+    connection.promise().query(query, (err, res) => {
+        if (err) throw err;
+        console.table(res);
+        promptUser();
+    });
+};
+
+//2. View all Roles
+const viewAllRoles = () => {
+    const query = `SELECT role.id, role.title, department.department_name AS department
+                   FROM role
+                   INNER JOIN department ON role.department_id = department.id`;
+    connection.promise().query(query, (err, res) => {
+        if (err) throw err;
+        res.forEach((role) => {
+            console.log(role.title);
+        });
+        promptUser();
+    });
+};
+
+//3. View all Departments
+const viewAllDepartments = () => {
+    const sql = `SELECT department.id AS id, department.department_name AS department FROM department`;
+    connection.promise().query(sql, (err, res) => {
+        if (err) throw err;
+        console.log(chalk.yellow.bold(`====================================================================================`));
+        console.log(`                              ` + chalk.green.bold(`All Departments:`));
+        console.log(chalk.yellow.bold(`====================================================================================`));
+        console.table(res);
+        console.log(chalk.yellow.bold(`====================================================================================`));
+        promptUser();
+    });
+};
+
+//4. View all Employees by Department
+const viewEmployeesByDepartment = () => {
+    const sql = `SELECT employee.first_name, 
+                    employee.last_name, 
+                    department.department_name AS department
+                    FROM employee 
+                    LEFT JOIN role ON employee.role_id = role.id 
+                    LEFT JOIN department ON role.department_id = department.id`;
+    connection.query(sql, (err, res) => {
+        if (err) throw err;
+        console.log(chalk.yellow.bold(`====================================================================================`));
+        console.log(`                              ` + chalk.green.bold(`Employees by Department:`));
+        console.log(chalk.yellow.bold(`====================================================================================`));
+        console.table(res);
+        console.log(chalk.yellow.bold(`====================================================================================`));
+        promptUser();
+    });
+};
+
+//5. View all Departments by Budget
+const viewDepartmentBudget = () => {
+    console.log(chalk.yellow.bold(`====================================================================================`));
+    console.log(`                              ` + chalk.green.bold(`Budget By Department:`));
+    console.log(chalk.yellow.bold(`====================================================================================`));
+    const sql = `SELECT department_id AS id, 
+                    department.department_name AS department,
+                    SUM(salary) AS budget
+                    FROM  role  
+                    INNER JOIN department ON role.department_id = department.id GROUP BY  role.department_id`;
+    connection.query(sql, (err, res) => {
+        if (err) throw err;
+        console.table(res);
+        console.log(chalk.yellow.bold(`====================================================================================`));
+        promptUser();
+    });
 };
