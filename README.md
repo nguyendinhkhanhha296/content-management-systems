@@ -27,7 +27,7 @@
   
 💻 Below is the gif showing the functionality of the application:
   
-![Gif]]()
+![Gif](./Assets/employeetracker.gif)
   
 🎥 The full movie file showing functionality of the application can be found [here](./Assets/Screen%20Recording%202022-09-08%20at%202.01.36%20PM.mov)  
   
