@@ -109,7 +109,7 @@ const viewAllEmployees = () => {
                  WHERE department.id = role.department_id 
                  AND role.id = employee.role_id
                  ORDER BY employee.id ASC`;
-    connection.promise().query(query, (err, res) => {
+    connection.query(query, (err, res) => {
         if (err) throw err;
         console.table(res);
         promptUser();
@@ -121,7 +121,7 @@ const viewAllRoles = () => {
     const query = `SELECT role.id, role.title, department.department_name AS department
                    FROM role
                    INNER JOIN department ON role.department_id = department.id`;
-    connection.promise().query(query, (err, res) => {
+    connection.query(query, (err, res) => {
         if (err) throw err;
         res.forEach((role) => {
             console.log(role.title);
@@ -133,7 +133,7 @@ const viewAllRoles = () => {
 //3. View all Departments
 const viewAllDepartments = () => {
     const query = `SELECT department.id AS id, department.department_name AS department FROM department`;
-    connection.promise().query(query, (err, res) => {
+    connection.query(query, (err, res) => {
         if (err) throw err;
         console.table(res);
         promptUser();
@@ -202,7 +202,7 @@ const addEmployee = () => {
         .then(answer => {
             const crit = [answer.fistName, answer.lastName]
             const roleSql = `SELECT role.id, role.title FROM role`;
-            connection.promise().query(roleSql, (err, data) => {
+            connection.query(roleSql, (err, data) => {
                 if (err) throw err;
                 const roles = data.map(({
                     id,
@@ -221,7 +221,7 @@ const addEmployee = () => {
                         const role = roleChoice.role;
                         crit.push(role);
                         const managerSql = `SELECT * FROM employee`;
-                        connection.promise().query(managerSql, (err, data) => {
+                        connection.query(managerSql, (err, data) => {
                             if (err) throw err;
                             const managers = data.map(({
                                 id,
@@ -257,7 +257,7 @@ const addEmployee = () => {
 //2. Add a New Role
 const addRole = () => {
     const sql = 'SELECT * FROM department'
-    connection.promise().query(sql, (err, res) => {
+    connection.query(sql, (err, res) => {
         if (err) throw err;
         let deptNamesArray = [];
         res.forEach((department) => {
@@ -307,7 +307,7 @@ const addRole = () => {
                     let sql = `INSERT INTO role (title, salary, department_id) VALUES (?, ?, ?)`;
                     let crit = [createdRole, answer.salary, departmentId];
 
-                    connection.promise().query(sql, crit, (err) => {
+                    connection.query(sql, crit, (err) => {
                         if (err) throw err;
                         viewAllRoles();
                     });
@@ -339,7 +339,7 @@ const addDepartment = () => {
 const updateEmployeeRole = () => {
     let sql = `SELECT employee.id, employee.first_name, employee.last_name, role.id AS "role_id"
                     FROM employee, role, department WHERE department.id = role.department_id AND role.id = employee.role_id`;
-    connection.promise().query(sql, (err, res) => {
+    connection.query(sql, (err, res) => {
         if (err) throw err;
         let employeeNamesArray = [];
         res.forEach((employee) => {
@@ -347,7 +347,7 @@ const updateEmployeeRole = () => {
         });
 
         let sql = `SELECT role.id, role.title FROM role`;
-        connection.promise().query(sql, (err, res) => {
+        connection.query(sql, (err, res) => {
             if (err) throw err;
             let rolesArray = [];
             res.forEach((role) => {
@@ -404,7 +404,7 @@ const updateEmployeeRole = () => {
 const updateEmployeeManager = () => {
     let sql = `SELECT employee.id, employee.first_name, employee.last_name, employee.manager_id
                     FROM employee`;
-    connection.promise().query(sql, (_err, res) => {
+    connection.query(sql, (_err, res) => {
         let employeeNamesArray = [];
         res.forEach((employee) => {
             employeeNamesArray.push(`${employee.first_name} ${employee.last_name}`);
@@ -464,7 +464,7 @@ const updateEmployeeManager = () => {
 const removeEmployee = () => {
     let sql = `SELECT employee.id, employee.first_name, employee.last_name FROM employee`;
 
-    connection.promise().query(sql, (err, res) => {
+    connection.query(sql, (err, res) => {
         if (err) throw err;
         let employeeNamesArray = [];
         res.forEach((employee) => {
@@ -504,7 +504,7 @@ const removeEmployee = () => {
 const removeRole = () => {
     let sql = `SELECT role.id, role.title FROM role`;
 
-    connection.promise().query(sql, (err, res) => {
+    connection.query(sql, (err, res) => {
         if (err) throw err;
         let roleNamesArray = [];
         res.forEach((role) => {
@@ -528,7 +528,7 @@ const removeRole = () => {
                 });
 
                 let sql = `DELETE FROM role WHERE role.id = ?`;
-                connection.promise().query(sql, [roleId], (err) => {
+                connection.query(sql, [roleId], (err) => {
                     if (err) throw err;
                     console.log(`Role Successfully Removed`);
                     viewAllRoles();
@@ -540,7 +540,7 @@ const removeRole = () => {
 //3. Delete a Department
 const removeDepartment = () => {
     let sql = `SELECT department.id, department.department_name FROM department`;
-    connection.promise().query(sql, (err, res) => {
+    connection.query(sql, (err, res) => {
         if (err) throw err;
         let departmentNamesArray = [];
         res.forEach((department) => {
@@ -564,7 +564,7 @@ const removeDepartment = () => {
                 });
 
                 let sql = `DELETE FROM department WHERE department.id = ?`;
-                connection.promise().query(sql, [departmentId], (err) => {
+                connection.query(sql, [departmentId], (err) => {
                     if (err) throw err;
                     console.log(`Department Successfully Removed`);
                     viewAllDepartments();
