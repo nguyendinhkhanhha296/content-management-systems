@@ -1,5 +1,6 @@
 const connection = require('./config/connection');
 const inquirer = require('inquirer');
+const validate = require('./validator/validator');
 require("console.table");
 
 // connect to the m query server and query database
