@@ -10,6 +10,7 @@
   "license": "ISC",
   "dependencies": {
     "console-table": "^0.1.2",
+    "console.table": "^0.10.0",
     "dotenv": "^16.0.2",
     "inquirer": "^8.2.4",
     "mysql2": "^2.3.3",
@@ -23,6 +24,5 @@
     "url": "https://github.com/nguyendinhkhanhha296/content-management-systems/issues"
   },
   "homepage": "https://github.com/nguyendinhkhanhha296/content-management-systems#readme",
-  "devDependencies": {},
   "description": ""
 }

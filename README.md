@@ -19,7 +19,7 @@
 
 ## Screenshot
 
-![Screenshot]()
+![Screenshot](./Assets/Screen%20Shot%202022-09-08%20at%201.38.14%20PM.png)
    
 ## Description
   
