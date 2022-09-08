@@ -1,5 +1,5 @@
 {
-  "name": "content-management-systems-",
+  "name": "employee-tracker-",
   "version": "1.0.0",
   "main": "server.js",
   "scripts": {
@@ -18,11 +18,12 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/nguyendinhkhanhha296/content-management-systems.git"
+    "url": "git+https://github.com/nguyendinhkhanhha296/employee-tracker.git"
   },
   "bugs": {
-    "url": "https://github.com/nguyendinhkhanhha296/content-management-systems/issues"
+    "url": "https://github.com/nguyendinhkhanhha296/employee-tracker/issues"
   },
-  "homepage": "https://github.com/nguyendinhkhanhha296/content-management-systems#readme",
-  "description": ""
+  "homepage": "https://github.com/nguyendinhkhanhha296/employee-tracker#readme",
+  "description": "<h1 align=\"center\">Employee Tracker</h1>",
+  "devDependencies": {}
 }
