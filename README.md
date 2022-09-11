@@ -29,7 +29,7 @@
   
 ![Gif](./Assets/employeetracker.gif)
   
-🎥 The full movie file showing functionality of the application can be found [here](./Assets/Screen%20Recording%202022-09-08%20at%202.01.36%20PM.mov)  
+🎥 The full movie file showing functionality of the application can be found [here](./Assets/Screen%20Recording%202022-09-11%20at%202.35.30%20PM.mov)  
   
 ## User Story
   
